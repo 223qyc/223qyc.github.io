@@ -3,935 +3,1620 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yicheng Qin | 计算机科学研究者与开发者</title>
-    <!-- 添加Merriweather字体，这是一种非常适合学术内容的字体 -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap">
+    <title>Yicheng Qin | RL, LLMs, Machine Learning</title>
+    <meta
+        name="description"
+        content="Yicheng Qin is a Computer Science student focused on reinforcement learning, large language models, machine learning, and a growing interest in quantitative research."
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
     <style>
-        /* --- 全局样式与重置 --- */
         :root {
-            --bg-color: #ffffff; /* 白色背景 */
-            --card-bg-color: #f8f9fa; /* 更淡的卡片背景色，更学术风格 */
-            --text-color: #2c3e50; /* 更深沉的主要文字颜色，增加学术感 */
-            --text-secondary: #5a6a7e; /* 更深的次要文字颜色 */
-            --heading-color: #1a2639; /* 更深的标题颜色，增强对比度 */
-            --link-color: #3498db; /* 调整为更柔和的蓝色 */
-            --link-hover-color: #2980b9; /* 链接悬停色调 */
-            --accent-color: #3498db; /* 保持一致性 */
-            --border-color: #e9ecef; /* 更淡的边框颜色 */
-            --shadow-color: rgba(0, 0, 0, 0.05); /* 更柔和的阴影 */
-            --shadow-stronger: rgba(0, 0, 0, 0.09);
-            --font-main: 'Merriweather', 'Georgia', 'Times New Roman', serif; /* 更学术风格的字体 */
-            --font-code: 'SF Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            --bg: #f8f6f2;
+            --bg-strong: #f0ebe3;
+            --surface: rgba(255, 255, 255, 0.82);
+            --surface-strong: rgba(255, 255, 255, 0.92);
+            --surface-soft: rgba(255, 255, 255, 0.6);
+            --line: rgba(32, 36, 46, 0.08);
+            --line-strong: rgba(32, 36, 46, 0.14);
+            --text: #1a1f2e;
+            --muted: #6a7282;
+            --accent: #2563eb;
+            --accent-soft: rgba(37, 99, 235, 0.1);
+            --accent-warm: #c25a3c;
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 12px 24px rgba(0, 0, 0, 0.06);
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.04);
+            --shadow-hover: 0 22px 44px rgba(24, 38, 70, 0.12);
+            --ring: 0 0 0 4px rgba(37, 99, 235, 0.14);
+            --radius-xl: 28px;
+            --radius-lg: 20px;
+            --radius-md: 16px;
+            --radius-sm: 12px;
+            --container: 1200px;
+            --font-main: "Instrument Sans", "Helvetica Neue", sans-serif;
+            --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: var(--font-main);
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.8; /* 增加行高，提高可读性 */
-            font-size: 17px;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            color: var(--text);
+            line-height: 1.7;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(37, 99, 235, 0.08), transparent 35%),
+                radial-gradient(circle at 85% 15%, rgba(194, 90, 60, 0.06), transparent 30%),
+                radial-gradient(circle at 50% 80%, rgba(37, 99, 235, 0.05), transparent 40%),
+                linear-gradient(180deg, #faf9f7 0%, #f5f1eb 50%, #f9f7f3 100%);
         }
 
-        .container {
-            max-width: 1000px; /* 略微增加容器宽度 */
-            margin: 0 auto;
-            padding: 0 22px;
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.4) 1px, transparent 1px);
+            background-size: 32px 32px;
+            mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+            opacity: 0.5;
         }
 
-        /* --- 链接与按钮 --- */
+        ::selection {
+            background: rgba(37, 99, 235, 0.16);
+            color: var(--text);
+        }
+
         a {
-            color: var(--link-color);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        a:hover {
-            color: var(--link-hover-color);
+            color: inherit;
             text-decoration: none;
         }
 
-        .button {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 16px;
-            transition: background-color 0.2s ease, transform 0.15s ease;
-            border: none;
-            cursor: pointer;
+        img {
+            max-width: 100%;
+            display: block;
         }
 
-        .button:hover {
-            background-color: var(--link-hover-color);
-            transform: scale(1.03);
-            color: white;
+        .page-shell {
+            width: min(calc(100% - 32px), var(--container));
+            margin: 0 auto;
+            padding: 24px 0 64px;
+            position: relative;
+            z-index: 1;
         }
 
-        /* --- 头部 --- */
-        header {
-            text-align: center;
-            margin: 80px 0 60px; /* 增加上下间距 */
-        }
-
-        header .profile-image {
-            width: 128px;
-            height: 128px;
-            border-radius: 50%;
-            margin-bottom: 28px;
-            box-shadow: 0 8px 25px var(--shadow-stronger);
-            border: 3px solid var(--bg-color);
-            object-fit: cover;
-            object-position: center 25%; /* 调整为中上方剪裁，显示头发上半部分 */
-            background-color: #e0e0e0; /* 图片加载前的占位背景色 */
-        }
-
-        header .profile-name {
-            font-size: 44px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--heading-color);
-            letter-spacing: -0.02em;
-        }
-
-        header .profile-title {
-            font-size: 21px;
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            font-weight: 400;
-        }
-
-        /* --- 导航与联系 --- */
-        nav.contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 70px;
-            flex-wrap: wrap;
-        }
-
-        nav.contact-links a {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 9px 16px;
-            border-radius: 8px;
-            background-color: var(--card-bg-color);
-            color: var(--text-color);
-            font-weight: 500;
-            font-size: 15px;
-            transition: all 0.2s ease;
-        }
-
-        nav.contact-links a:hover {
-            background-color: #e0e0e0;
-            color: var(--link-color);
-            transform: translateY(-1px);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        nav.contact-links a:hover svg {
-            fill: var(--link-color);
-        }
-
-        nav.contact-links a svg {
-            width: 18px;
-            height: 18px;
-            fill: var(--text-secondary);
-            transition: fill 0.2s ease;
-        }
-
-        /* --- 主要内容区域 --- */
-        main {
-            margin-bottom: 80px;
-        }
-
-        section {
-            background-color: var(--card-bg-color);
-            border-radius: 16px; /* 稍微调整圆角 */
-            padding: 40px 45px; /* 增加内边距 */
-            margin-bottom: 40px; /* 增加底部间距 */
-            box-shadow: 0 4px 20px var(--shadow-color);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-            border: 1px solid var(--border-color); /* 添加细边框增强学术感 */
-        }
-
-        section:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px var(--shadow-stronger);
-        }
-
-        section h2 {
-            font-size: 28px; /* 增加标题大小 */
-            font-weight: 700; /* 增加字重 */
-            color: var(--heading-color);
-            margin-bottom: 32px; /* 增加底部间距 */
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            letter-spacing: -0.01em;
-            border-bottom: 2px solid var(--border-color); /* 添加底部边框，增强学术感 */
-            padding-bottom: 12px; /* 添加底部内边距 */
-        }
-        section h2 svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--accent-color);
-        }
-
-
-        section h3 {
-            font-size: 19px;
-            font-weight: 600;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            color: var(--heading-color);
-        }
-
-
-        /* --- 关于我 --- */
-        #about {
-            display: flex;
-            flex-direction: column;
-            gap: 35px;
-        }
-
-        #about .about-top {
-            display: flex;
-            gap: 35px;
-            align-items: flex-start;
-        }
-
-        #about .about-content {
-            flex: 1;
-        }
-
-        #about .about-image {
-            flex: 0 0 380px; /* 增加图片容器的宽度，原为320px */
-            align-self: center;
-            transition: transform 0.3s ease;
-        }
-
-        #about .about-image:hover {
-            transform: scale(1.03); /* 添加悬停效果增强交互性 */
-        }
-
-        #about .about-image img {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px var(--shadow-color); /* 增强阴影效果 */
-            background-color: #e0e0e0; /* 图片加载前的占位背景色 */
-        }
-
-        #about .about-text p {
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        #about .about-text b {
-            color: var(--accent-color);
-            font-weight: 600;
-        }
-
-        #about .profile-views {
-            margin-top: 24px;
-        }
-
-        #about .profile-views img {
-            border-radius: 5px;
-        }
-
-        /* 在关于我部分后添加引用 */
-        #about .academic-quote {
-            margin: 20px 0 10px;
-            width: 100%;
-            text-align: center;
-            background-color: rgba(52, 152, 219, 0.04);
-            padding: 25px 30px;
-        }
-        
-        @media (max-width: 768px) {
-            #about .academic-quote {
-                padding: 20px;
-                margin: 5px 0;
-            }
-        }
-
-        /* --- 技能栈 --- */
-        #skills .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 30px; /* 增加间距 */
-        }
-
-        #skills .skill-category h3 {
-            font-size: 18px; /* 增加标题大小 */
-            margin-top: 0;
-            margin-bottom: 16px; /* 增加间距 */
-            color: var(--accent-color);
-            font-weight: 600;
-            letter-spacing: 0.03em; /* 增加字母间距，更有学术感 */
-        }
-
-        .skill-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px; /* 增加技能标签间距 */
-        }
-
-        .skill-tag {
-            background-color: rgba(52, 152, 219, 0.08); /* 调整透明度 */
-            color: var(--accent-color);
-            padding: 6px 14px; /* 增加内边距 */
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: 0.02em; /* 增加字母间距 */
-        }
-
-        /* --- 项目展示 --- */
-        #projects .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        .project-card {
-            background-color: white;
-            border-radius: 10px; /* 调整圆角 */
-            overflow: hidden;
-            box-shadow: 0 3px 10px var(--shadow-color);
-            transition: all 0.25s ease;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid var(--border-color); /* 添加边框 */
-        }
-
-        .project-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 7px 20px var(--shadow-stronger);
-        }
-
-        .project-card .project-image {
-            height: 140px; /* 增加高度 */
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef); /* 更柔和的渐变 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            font-size: 32px;
-            border-bottom: 1px solid var(--border-color); /* 添加分隔线 */
-        }
-        .project-card .project-image-icon {
-            background-color: rgba(255,255,255,0.7);
-            padding: 12px;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-
-        .project-content {
-            padding: 18px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-title {
-            font-size: 17px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--heading-color);
-        }
-
-        .project-description {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 14px;
-            flex: 1;
-            line-height: 1.5;
-        }
-
-        .project-link {
-            align-self: flex-start;
-            margin-top: auto;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--link-color);
-            padding: 4px 0;
-        }
-
-        .all-repos-link {
-            text-align: center;
-            margin-top: 25px;
-        }
-         .all-repos-link .button {
-            font-size: 15px;
-            padding: 10px 25px;
-        }
-
-        /* --- 我的旅程 --- */
-        .journey-quote {
-            text-align: center;
-            font-style: italic;
-            margin: 25px 0 35px;
-            color: var(--text-secondary);
-            font-size: 19px;
-            font-weight: 400;
-            letter-spacing: -0.01em;
-            line-height: 1.5;
-        }
-
-        .accordion {
-            margin-bottom: 14px;
-            border-radius: 12px;
-            overflow: hidden;
-            background-color: white;
-            box-shadow: 0 3px 10px var(--shadow-color);
-        }
-
-        .accordion-header {
-            padding: 16px 18px;
-            font-weight: 500;
-            cursor: pointer;
+        .topbar {
+            position: sticky;
+            top: 16px;
+            z-index: 30;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 16px;
-            transition: background-color 0.2s ease;
-            user-select: none;
+            gap: 16px;
+            padding: 12px 16px;
+            margin-bottom: 28px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(16px) saturate(180%);
+            box-shadow: 0 12px 28px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.82);
         }
 
-        .accordion-header:hover {
-            background-color: rgba(0, 122, 255, 0.03);
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
         }
 
-        .accordion-header::after {
-            content: "+";
-            font-weight: 300;
-            font-size: 22px;
-            color: var(--accent-color);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .accordion-content {
-            padding: 0 18px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding-bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 15px;
-            color: var(--text-secondary);
-        }
-
-        .accordion-content ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .accordion-content li {
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
-            line-height: 1.5;
-        }
-        .accordion-content li:last-child {
-            margin-bottom: 0;
-        }
-
-        .accordion-content li::before {
-            content: "•";
-            color: var(--accent-color);
-            position: absolute;
-            left: 5px;
-            font-weight: bold;
-            top: 0px;
-        }
-
-        .accordion.active .accordion-header::after {
-            transform: rotate(45deg);
-        }
-
-        .accordion.active .accordion-content {
-            max-height: 500px;
-            padding-top: 8px;
-            padding-bottom: 18px;
-        }
-
-        /* --- GitHub 统计 --- */
-        #stats .stats-container {
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            place-items: center;
+            background: linear-gradient(135deg, #2563eb, #60a5fa);
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 2px 8px rgba(37, 99, 235, 0.3);
+        }
+
+        .brand-copy strong {
+            display: block;
+            font-size: 0.98rem;
+        }
+
+        .brand-copy span {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.45;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-links a {
+            padding: 9px 13px;
+            border-radius: 999px;
+            color: var(--muted);
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .lang-switch {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px;
+            border-radius: 999px;
+            background: rgba(37, 99, 235, 0.06);
+            border: 1px solid rgba(37, 99, 235, 0.08);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+        }
+
+        .lang-switch button {
+            border: 0;
+            background: transparent;
+            color: var(--muted);
+            padding: 6px 11px;
+            border-radius: 999px;
+            font: inherit;
+            font-size: 0.88rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .lang-switch button.active {
+            background: #fff;
+            color: var(--accent);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .lang-switch button:hover {
+            color: var(--text);
+        }
+
+        .nav-links a:focus-visible,
+        .lang-switch button:focus-visible,
+        .button:focus-visible,
+        .button-secondary:focus-visible,
+        .project-link:focus-visible,
+        .contact-item:focus-visible {
+            outline: none;
+            box-shadow: var(--ring);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.9fr);
+            gap: 22px;
+            margin-bottom: 24px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            box-shadow: 0 18px 40px rgba(17, 24, 39, 0.08);
+            border-radius: var(--radius-xl);
+            backdrop-filter: blur(20px) saturate(180%);
+        }
+
+        .hero-main {
+            position: relative;
+            overflow: hidden;
+            padding: clamp(30px, 4vw, 44px);
+            background:
+                linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.7)),
+                linear-gradient(120deg, rgba(37, 99, 235, 0.06), transparent 40%);
+        }
+
+        .hero-main::before {
+            content: "";
+            position: absolute;
+            right: -60px;
+            bottom: -80px;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.15), transparent 70%);
+        }
+
+        .hero-main::after {
+            content: "";
+            position: absolute;
+            inset: 16px;
+            border-radius: calc(var(--radius-xl) - 8px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            pointer-events: none;
+        }
+
+        .eyebrow,
+        .meta-label,
+        .section-index {
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 12px;
+            margin-bottom: 18px;
+            border-radius: 999px;
+            color: var(--muted);
+            background: rgba(37, 99, 235, 0.06);
+            font-weight: 500;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 5vw, 5.2rem);
+            line-height: 0.98;
+            letter-spacing: -0.05em;
+            max-width: 11ch;
+            margin-bottom: 18px;
+            text-wrap: balance;
+        }
+
+        .hero-lead {
+            max-width: 62ch;
+            font-size: 1.08rem;
+            color: var(--muted);
+            margin-bottom: 28px;
+            line-height: 1.75;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .button,
+        .button-secondary {
+            min-height: 46px;
+            padding: 0 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+        }
+
+        .button {
+            color: #fff;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            box-shadow: 0 12px 28px rgba(37, 99, 235, 0.25);
+            border: 1px solid rgba(29, 78, 216, 0.3);
+        }
+
+        .button-secondary {
+            color: var(--text);
+            border: 1px solid rgba(32, 36, 46, 0.1);
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.76);
+        }
+
+        .button:hover,
+        .button-secondary:hover {
+            transform: translateY(-2px);
+        }
+
+        .button:hover {
+            box-shadow: 0 16px 36px rgba(37, 99, 235, 0.3);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .hero-stat {
+            padding: 16px;
+            border-radius: var(--radius-md);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.64));
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+        }
+
+        .hero-stat strong {
+            display: block;
+            font-size: 0.92rem;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        .hero-side {
+            display: grid;
+            gap: 16px;
+            align-content: start;
+        }
+
+        .note-card,
+        .focus-card {
+            position: relative;
+            overflow: hidden;
+            padding: 26px;
+            border-radius: var(--radius-xl);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.72));
+        }
+
+        .note-card::before,
+        .focus-card::before,
+        .project-card::before,
+        .exploration-card::before,
+        .fact-card::before,
+        .focus-item::before,
+        .tag-card::before,
+        .contact-copy::before,
+        .contact-links::before {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 3px;
+            background: linear-gradient(90deg, #2563eb, #c25a3c);
+            opacity: 0.85;
+        }
+
+        .meta-label {
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+
+        .note-card h2,
+        .focus-card h2,
+        .section-heading h2,
+        .contact-copy h2 {
+            font-size: clamp(1.75rem, 2.1vw, 2.35rem);
+            line-height: 1.08;
+            letter-spacing: -0.045em;
+            margin-bottom: 16px;
+            text-wrap: balance;
+        }
+
+        .note-card p,
+        .focus-card p {
+            color: var(--muted);
+        }
+
+        .note-list {
+            display: grid;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .note-list li {
+            list-style: none;
+            padding: 12px 14px;
+            border-radius: var(--radius-sm);
+            background: rgba(29, 36, 48, 0.05);
+            color: var(--text);
+            border: 1px solid rgba(32, 36, 46, 0.05);
+        }
+
+        .section {
+            display: grid;
+            grid-template-columns: 200px minmax(0, 1fr);
+            gap: 22px;
+            margin-bottom: 24px;
+        }
+
+        .section-index {
+            position: sticky;
+            top: 110px;
+            align-self: start;
+            padding: 16px 18px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: var(--muted);
+            box-shadow: var(--shadow-sm);
+            font-weight: 600;
+            backdrop-filter: blur(14px);
+        }
+
+        .section-panel {
+            padding: clamp(26px, 3vw, 34px);
+            border-radius: var(--radius-xl);
+        }
+
+        .section-heading {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(240px, 0.9fr);
+            gap: 22px;
+            padding-bottom: 24px;
+            margin-bottom: 28px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .section-heading p,
+        .intro-copy p,
+        .contact-copy p {
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            gap: 18px;
+            align-items: start;
+        }
+
+        .intro-copy {
+            display: grid;
+            gap: 16px;
+            font-size: 1.02rem;
+        }
+
+        .fact-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .fact-card,
+        .focus-item,
+        .tag-card,
+        .project-card,
+        .exploration-card,
+        .contact-copy,
+        .contact-links {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fact-card {
+            padding: 20px 18px 18px;
+            border-radius: var(--radius-lg);
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(37, 99, 235, 0.08);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.76);
+        }
+
+        .fact-card span {
+            display: block;
+            font-size: 0.86rem;
+            color: var(--muted);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .fact-card p {
+            color: var(--muted);
+            margin-top: 5px;
+            font-size: 0.93rem;
+        }
+
+        .focus-grid,
+        .tag-grid,
+        .project-grid,
+        .exploration-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .focus-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .focus-item {
+            padding: 24px 22px 22px;
+            border-radius: var(--radius-lg);
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(37, 99, 235, 0.08);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.74);
+        }
+
+        .focus-item h3,
+        .project-card h3,
+        .exploration-card h3 {
+            font-size: 1.06rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+            line-height: 1.35;
+        }
+
+        .focus-item p,
+        .project-card p,
+        .exploration-card p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+
+        .tag-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .tag-card {
+            padding: 20px 18px 18px;
+            border-radius: var(--radius-lg);
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(37, 99, 235, 0.08);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.74);
+        }
+
+        .tag-card span {
+            display: block;
+            color: var(--muted);
+            margin-bottom: 7px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .tag-card strong {
+            font-size: 0.98rem;
+            font-weight: 600;
+        }
+
+        .project-group {
             margin-bottom: 30px;
         }
 
-        .stats-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px; /* 调整圆角 */
-            box-shadow: 0 3px 10px var(--shadow-color);
-            background-color: var(--bg-color);
-            border: 1px solid var(--border-color); /* 添加边框 */
-            padding: 10px; /* 添加内边距 */
-        }
-        #stats .trophy-streak-container {
-            text-align: center;
-            margin-top: 25px;
-        }
-        #stats .trophy-streak-container img {
-             max-width: 100%;
-             margin-bottom: 15px;
-             border-radius: 8px;
+        .project-group:last-child {
+            margin-bottom: 0;
         }
 
-        /* 添加学术引用样式区块 */
-        .academic-quote {
-            position: relative;
-            font-style: italic;
-            background-color: rgba(52, 152, 219, 0.05);
-            border-left: 4px solid var(--accent-color);
-            padding: 20px 25px;
-            margin: 30px 0;
-            border-radius: 5px;
-            font-size: 16px;
-            color: var(--text-secondary);
-            line-height: 1.8;
-        }
-        
-        .academic-quote:before {
-            content: '"';
-            font-size: 40px;
-            font-family: Georgia, serif;
-            color: var(--accent-color);
-            opacity: 0.4;
-            position: absolute;
-            left: 10px;
-            top: -10px;
+        .project-group-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 16px;
+            margin-bottom: 18px;
         }
 
-        /* --- 页脚 --- */
+        .project-group-head p {
+            color: var(--muted);
+            max-width: 54ch;
+            font-size: 0.95rem;
+        }
+
+        .project-grid,
+        .exploration-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .project-card,
+        .exploration-card {
+            padding: 24px 22px 22px;
+            border-radius: var(--radius-lg);
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(37, 99, 235, 0.08);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.76);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover,
+        .exploration-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .project-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+
+        .project-badge {
+            display: inline-flex;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.74rem;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin: 14px 0 16px;
+        }
+
+        .project-tags span {
+            padding: 6px 9px;
+            border-radius: 999px;
+            background: rgba(37, 99, 235, 0.06);
+            color: var(--muted);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: var(--accent);
+            margin-top: auto;
+        }
+
+        .project-link:hover {
+            opacity: 0.85;
+        }
+
+        .contact-panel {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(300px, 0.85fr);
+            gap: 16px;
+        }
+
+        .contact-copy,
+        .contact-links {
+            padding: 28px;
+            border-radius: var(--radius-lg);
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(37, 99, 235, 0.08);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.76);
+        }
+
+        .contact-links {
+            display: grid;
+            gap: 10px;
+        }
+
+        .contact-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 15px;
+            border-radius: var(--radius-sm);
+            background: rgba(37, 99, 235, 0.04);
+            border: 1px solid rgba(37, 99, 235, 0.06);
+            transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(37, 99, 235, 0.1);
+            transform: translateX(3px);
+            border-color: rgba(37, 99, 235, 0.14);
+        }
+
+        .contact-item span {
+            display: block;
+            color: var(--muted);
+            font-size: 0.86rem;
+            margin-bottom: 2px;
+            font-weight: 500;
+        }
+
         footer {
-            text-align: center;
-            margin: 70px 0 40px;
-            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            padding: 26px 4px 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(32, 36, 46, 0.08);
         }
 
-        footer .footer-text {
-            font-size: 15px;
-            margin-bottom: 15px;
-            line-height: 1.5;
+        .accent {
+            color: var(--accent-warm);
+            font-weight: 600;
         }
 
-        footer .copyright {
-            font-size: 13px;
-            margin-top: 15px;
-            color: #86868b;
+        @media (max-width: 1024px) {
+            .hero,
+            .section,
+            .section-heading,
+            .intro-grid,
+            .focus-grid,
+            .tag-grid,
+            .project-grid,
+            .exploration-grid,
+            .contact-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .section-index {
+                position: static;
+                margin-bottom: 12px;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-main,
+            .note-card,
+            .focus-card,
+            .section-panel {
+                border-radius: calc(var(--radius-xl) - 2px);
+            }
         }
 
-        /* --- 响应式设计 --- */
-        @media (max-width: 768px) {
-            body {
-                font-size: 16px;
-            }
-            .container {
-                padding: 0 18px;
-            }
-            header {
-                margin: 50px 0 40px;
-            }
-            header .profile-image {
-                width: 110px;
-                height: 110px;
-            }
-            header .profile-name {
-                font-size: 38px;
-            }
-            header .profile-title {
-                font-size: 19px;
+        @media (max-width: 860px) {
+            .topbar {
+                border-radius: 28px;
+                align-items: flex-start;
+                padding: 16px;
             }
 
-            section {
-                padding: 25px 20px;
-                border-radius: 16px;
-            }
-            section h2 {
-                font-size: 24px;
-                margin-bottom: 24px;
+            .topbar-right,
+            .nav-links {
+                justify-content: flex-start;
             }
 
-            #about .about-top {
+            .brand {
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .page-shell {
+                width: min(calc(100% - 20px), var(--container));
+                padding-top: 16px;
+            }
+
+            .topbar,
+            .hero-main,
+            .note-card,
+            .focus-card,
+            .section-panel,
+            .contact-copy,
+            .contact-links {
+                padding: 22px;
+            }
+
+            .topbar {
+                gap: 14px;
+            }
+
+            .nav-links {
+                gap: 6px;
+            }
+
+            .nav-links a,
+            .lang-switch button {
+                min-height: 38px;
+            }
+
+            .hero h1 {
+                max-width: none;
+            }
+
+            .project-top,
+            .project-group-head,
+            footer {
                 flex-direction: column;
-                gap: 25px; /* 略微调整gap */
+                align-items: flex-start;
             }
 
-            #about .about-image {
-                flex: 0 0 auto; /* 确保在flex-direction: column时正常工作 */
-                width: 70%; /* 调整宽度百分比 */
-                max-width: 280px; /* 调整最大宽度 */
-                margin: 0 auto 20px;
-                order: -1;
-            }
-
-            #skills .skills-grid {
-                grid-template-columns: 1fr;
-                gap: 18px;
-            }
-             #stats .stats-container {
-                grid-template-columns: 1fr;
+            .project-badge {
+                white-space: normal;
             }
         }
 
-        @media (max-width: 480px) {
-            header .profile-name {
-                font-size: 32px;
-            }
-             header .profile-title {
-                font-size: 17px;
-            }
-            header .profile-image {
-                width: 90px;
-                height: 90px;
-                margin-bottom: 20px;
+        @media (max-width: 560px) {
+            .hero h1 {
+                font-size: clamp(2.35rem, 13vw, 3.2rem);
             }
 
-            section {
-                padding: 20px 15px;
-                border-radius: 12px;
-            }
-            section h2 {
-                font-size: 22px;
-                gap: 8px;
-            }
-             #about .about-image {
-                width: 80%; /* 在更小屏幕上可以再大一些 */
-                max-width: 240px; /* 相应调整 */
+            .hero-lead,
+            .intro-copy,
+            .section-heading p,
+            .contact-copy p {
+                font-size: 0.98rem;
             }
 
-            #projects .projects-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
+            .project-card,
+            .exploration-card,
+            .focus-item,
+            .fact-card,
+            .tag-card,
+            .contact-item {
+                border-radius: var(--radius-md);
             }
-             .project-card .project-image {
-                height: 110px;
-            }
-            .project-title {
-                font-size: 16px;
-            }
-            .project-description {
-                font-size: 13px;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .panel,
+            .section-index {
+                animation: rise 0.6s ease both;
             }
 
+            .hero-main { animation-delay: 0.05s; }
+            .note-card { animation-delay: 0.12s; }
+            .focus-card { animation-delay: 0.18s; }
+        }
 
-            nav.contact-links {
-                flex-direction: column;
-                gap: 8px;
-                align-items: stretch;
-                margin-bottom: 50px;
-            }
-
-            nav.contact-links a {
-                justify-content: center;
-                padding: 10px 15px;
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
             }
 
-            .journey-quote {
-                font-size: 17px;
-            }
-            .accordion-header {
-                font-size: 15px;
-                padding: 14px 16px;
-            }
-            .accordion-content {
-                font-size: 14px;
-            }
-            .button, .all-repos-link .button {
-                font-size: 15px;
-                padding: 10px 18px;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="page-shell">
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-mark">YQ</div>
+                <div class="brand-copy">
+                    <strong>Yicheng Qin</strong>
+                    <span data-i18n="brand_subtitle">223qyc · RL / LLMs / Machine Learning</span>
+                </div>
+            </div>
 
-        <header>
-            <!-- 确保 img/white.JPG 路径正确且图片存在。
-                 为了最佳显示效果 (特别是头部不被裁剪):
-                 1. 请提供宽高比接近 1:1 (正方形) 的头像图片。
-                 2. 确保图片中主要内容 (如脸部) 居中，且上下边缘有一定留白。
-                 如果图片裁剪不理想且无法修改原图，可以查看CSS中 .profile-image 的注释尝试 object-position 调整。
-            -->
-            <img class="profile-image" src="img/white.JPG" alt="Profile Picture yicheng qin">
-            <h1 class="profile-name">Yicheng Qin</h1>
-            <p class="profile-title">计算机科学与技术学生</p>
+            <div class="topbar-right">
+                <nav class="nav-links" aria-label="Primary">
+                    <a href="#about" data-i18n="nav_about">About</a>
+                    <a href="#focus" data-i18n="nav_focus">Focus</a>
+                    <a href="#projects" data-i18n="nav_projects">Projects</a>
+                    <a href="#contact" data-i18n="nav_contact">Contact</a>
+                </nav>
+
+                <div class="lang-switch" aria-label="Language switch">
+                    <button type="button" data-lang-button="zh">中文</button>
+                    <button type="button" data-lang-button="en">EN</button>
+                </div>
+            </div>
         </header>
 
-        <nav class="contact-links">
-            <a href="https://www.zhihu.com/people/zhen-nian-13-16" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M21.628 19.321l-3.014-3.014c1.145-1.502 1.829-3.401 1.829-5.465 0-4.968-4.032-9-9-9s-9 4.032-9 9 4.032 9 9 9c1.753 0 3.37-.501 4.768-1.382l3.08 3.08c.539.539 1.412.539 1.951 0 .54-.539.54-1.412 0-1.951zm-10.186-3.479c-3.251 0-5.883-2.632-5.883-5.883s2.632-5.883 5.883-5.883 5.883 2.632 5.883 5.883-2.632 5.883-5.883 5.883z"></path><path d="M3.08 19.166C4.518 17.525 6.67 16.5 9 16.5c1.006 0 1.966.206 2.84.578l-1.56 1.56c-.19-.037-.384-.06-.58-.06-1.968 0-3.715.89-4.937 2.301L3.08 19.166zM19.5 9c0-.48-.04-.948-.115-1.402L14.8 12.183c.424.76.667 1.633.667 2.567 0 .466-.053.916-.143 1.352l2.407 2.407C19.04 17.25 19.5 15.26 19.5 13.166c0-1.392-.398-2.682-1.07-3.794.046-.12.07-.244.07-.372z"></path><path d="M15.51 4.812a6.95 6.95 0 00-1.932-.312c-1.268 0-2.45.34-3.47.936L12.89 8.22c.13-.02.26-.03.39-.03.79 0 1.51.25 2.11.67l1.68-1.68a4.45 4.45 0 00-1.56-2.368zM9.28 15.71a4.47 4.47 0 002.11-3.27L8.61 9.66a4.45 4.45 0 00-2.368 1.56l1.68 1.68c.42-.6.99-1.05 1.67-1.31.02.13.03.26.03.39 0 .79-.25 1.51-.67 2.11l-1.68 1.68zM9.28 15.71z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                知乎
-            </a>
-            <a href="mailto:qqycyc4@gmail.com">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
-                Gmail
-            </a>
-            <a href="mailto:2741837865@qq.com">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.96 4.22c.34-.34.81-.47 1.3-.3.48.17.86.54 1.03 1.03.17.48.05.96-.3 1.3l-4.88 4.88c-.13.13-.3.2-.48.2-.18 0-.35-.07-.48-.2l-2.12-2.12c-.28-.28-.28-.72 0-1 .28-.28.72-.28 1 0l1.62 1.62 4.3-4.31zM12 19.5c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/></svg>
-                QQ邮箱
-            </a>
-            <a href="#" title="WeChat (请通过邮箱联系)">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.82 14.63c-.25 0-.5-.06-.72-.18-.45-.23-.62-.78-.39-1.23.1-.2.38-.78.45-.9.15-.28.05-.63-.23-.78-.28-.15-.63-.05-.78.23-.07.13-.38.7-.45.83-.23.45-.78.62-1.23.39-.6-.3-1.58-.73-2.8-1.63-1.03-.76-1.63-1.68-1.75-1.9-.23-.45.03-.98.48-1.2.15-.08.3-.1.45-.1.23 0 .45.08.6.23.15.15.23.38.23.6 0 .23-.15.45-.38.53-.07.07-.15.15-.15.23 0 .07.08.15.15.23.23-.23.53-.38.83-.38.38 0 .7.15.9.38.23.23.38.53.38.83s-.15.6-.38.83c-.07.07-.15.15-.15.23 0 .07.08.15.15.23.23-.23.53-.38.83-.38.3 0 .53-.15.7.38.15.23.38.38.6.38.23 0 .45-.08.6-.23.15-.15.23-.38.23-.6 0-.23-.15-.45-.38-.53l-.07-.07c.23-.23.38-.53.38-.83s-.15-.6-.38-.83a2.5 2.5 0 00-1.8-3.03c-1.65-.38-3.3.15-4.58 1.28-1.03.9-1.63 2.1-1.75 3.38-.15 1.5.38 3 1.43 4.05 1.13 1.13 2.63 1.73 4.2 1.73.75 0 1.5-.15 2.18-.45.53-.23.83-.78.6-1.23-.15-.3-.45-.53-.78-.53zm-5.82-11.9c-5.18 0-9.38 3.6-9.38 8.05s4.2 8.05 9.38 8.05 9.38-3.6 9.38-8.05-4.2-8.05-9.38-8.05z"/></svg>
-                微信
-            </a>
-             <a href="https://github.com/223qyc" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-                GitHub
-            </a>
-        </nav>
-
-        <main>
-            <section id="about">
-                <div class="about-top">
-                    <div class="about-content">
-                        <h2>👨‍💻 关于我</h2>
-                        <div class="about-text">
-                            <p><b>🎓 中国地质大学（武汉）· 未来技术学院</b></p>
-                            <p>目前是计算机科学与技术专业的大三本科生。</p>
-                            <p>💡 喜欢研究机器学习、深度学习和强化学习。</p>
-                            <p>💻 正持续向仓库上传一些自己制作的小玩意儿。</p>
-                            <p>📝 通过笔记和算法挑战积极记录我的学习过程。</p>
-                            <p>🚀 立志成为一名全面且富有创新精神的学习者。</p>
-                        </div>
-                        <div class="profile-views">
-                            <img src="https://komarev.com/ghpvc/?username=223qyc&color=3498db&style=flat-square&label=Profile+Views" alt="Profile Views">
-                        </div>
+        <section class="hero">
+            <div class="panel hero-main">
+                <div class="eyebrow" data-i18n="hero_eyebrow">Available for research conversations</div>
+                <h1 data-i18n="hero_title">Building ideas around RL, LLMs, and machine learning.</h1>
+                <p class="hero-lead" data-i18n-html="hero_lead">
+                    I am Yicheng Qin, a Computer Science student at <span class="accent">China University of Geosciences (Wuhan)</span>, with my next academic stage at <span class="accent">ShanghaiTech University, School of Information Science and Technology (SIST)</span>.
+                    My current interests center on reinforcement learning, large language models, and machine learning, and I am also independently studying quantitative research because I find its rigor and difficulty genuinely compelling.
+                </p>
+                <div class="hero-actions">
+                    <a class="button" href="#projects" data-i18n="hero_cta_primary">Selected Projects</a>
+                    <a class="button-secondary" href="https://github.com/223qyc" target="_blank" rel="noopener noreferrer" data-i18n="hero_cta_secondary">GitHub Profile</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="meta-label" data-i18n="stat_now_label">Now</div>
+                        <strong data-i18n="stat_now_value">Computer Science undergraduate</strong>
                     </div>
-                    <div class="about-image">
-                        <!-- 使用更适合计算机科学/学术风格的图像 -->
-                        <img src="https://d3ui957tjb5bqd.cloudfront.net/uploads/2015/04/03233520/rafaelvarona.gif.webp" alt="动画">
+                    <div class="hero-stat">
+                        <div class="meta-label" data-i18n="stat_next_label">Next</div>
+                        <strong data-i18n="stat_next_value">ShanghaiTech SIST graduate student</strong>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="meta-label" data-i18n="stat_research_label">Research</div>
+                        <strong data-i18n="stat_research_value">RL, LLMs, and machine learning</strong>
                     </div>
                 </div>
-                
-                <!-- 将学术引用移至内容和图片下方 -->
-                <div class="academic-quote">
-                    "科学的本质不仅仅是获取知识，而是以批判精神不断反思和创新，探索未知的边界。"
+            </div>
+
+            <div class="hero-side">
+                <aside class="panel note-card">
+                    <div class="meta-label" data-i18n="note_label">Current note</div>
+                    <h2 data-i18n="note_title">From coursework to research depth.</h2>
+                    <p data-i18n="note_body">
+                        My recent work is moving from learning-oriented implementation toward more research-driven exploration:
+                        reinforcement learning, large language models, and machine learning systems.
+                    </p>
+                    <ul class="note-list">
+                        <li data-i18n="note_item_1">ShanghaiTech SIST graduate student</li>
+                        <li data-i18n="note_item_2">Interested in RL, LLMs, and machine learning</li>
+                        <li data-i18n="note_item_3">Building intelligent systems with learning capabilities</li>
+                    </ul>
+                </aside>
+
+                <aside class="panel focus-card">
+                    <div class="meta-label" data-i18n="approach_label">Personal approach</div>
+                    <h2 data-i18n="approach_title">Research-minded, implementation-heavy, still learning fast.</h2>
+                    <p data-i18n="approach_body">
+                        I like projects that combine clear mathematical structure with practical coding work:
+                        experiments, simulations, learning pipelines, and tools that help me think better.
+                    </p>
+                </aside>
+            </div>
+        </section>
+
+        <section class="section" id="about">
+            <div class="section-index" data-i18n="about_index">01 / About</div>
+            <div class="panel section-panel">
+                <div class="section-heading">
+                    <div>
+                        <h2 data-i18n="about_title">About me</h2>
+                        <p data-i18n="about_intro">
+                            This site is a compact record of where I am now: finishing my undergraduate stage,
+                            preparing for the next research chapter, and curating the projects that best reflect how I think.
+                        </p>
+                    </div>
+                    <p data-i18n="about_side">
+                        I study Computer Science and Technology at China University of Geosciences (Wuhan), and the next stop is ShanghaiTech SIST.
+                        I want to keep going deeper on learning systems, decision-making, and research-driven problem solving, while continuing my independent exploration of quantitative research.
+                    </p>
                 </div>
-            </section>
 
-            <section id="skills">
-                <h2>🛠️ 技能栈</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3>编程语言</h3>
-                        <div class="skill-list">
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">C++</span>
-                            <span class="skill-tag">SQL</span>
-                        </div>
+                <div class="intro-grid">
+                    <div class="intro-copy">
+                        <p data-i18n="about_p1">
+                            My core interests currently sit around reinforcement learning, large language models,
+                            and machine learning. I enjoy projects that do not just run, but also reveal something about the underlying structure of a problem.
+                        </p>
+                        <p data-i18n="about_p2">
+                            I focus on building intelligent systems that can learn, adapt, and make decisions.
+                            My work spans from theoretical exploration to practical implementation, and I am also spending time studying quantitative research on my own because I am drawn to its high bar and analytical depth.
+                        </p>
+                        <p data-i18n="about_p3">
+                            I keep this page intentionally small. It is not an exhaustive resume. It is a sharper snapshot of the work and directions I want to take seriously.
+                        </p>
                     </div>
 
-                    <div class="skill-category">
-                        <h3>AI / 机器学习</h3>
-                        <div class="skill-list">
-                            <span class="skill-tag">TensorFlow</span>
-                            <span class="skill-tag">PyTorch</span>
-                            <span class="skill-tag">Scikit-Learn</span>
-                            <span class="skill-tag">NLTK</span>
-                            <span class="skill-tag">NumPy</span>
-                            <span class="skill-tag">Pandas</span>
+                    <div class="fact-grid">
+                        <div class="fact-card">
+                            <span data-i18n="fact_education_label">Education</span>
+                            <strong data-i18n="fact_education_title">China University of Geosciences (Wuhan)</strong>
+                            <p data-i18n="fact_education_body">Computer Science and Technology, graduating in 2026.</p>
                         </div>
-                    </div>
-
-                    <div class="skill-category">
-                        <h3>工具 & 平台</h3>
-                        <div class="skill-list">
-                            <span class="skill-tag">Jupyter</span>
-                            <span class="skill-tag">Git</span>
-                            <span class="skill-tag">GitHub</span>
-                            <span class="skill-tag">Docker</span>
-                            <span class="skill-tag">Flask</span>
+                        <div class="fact-card">
+                            <span data-i18n="fact_incoming_label">Incoming</span>
+                            <strong data-i18n="fact_incoming_title">ShanghaiTech University · SIST</strong>
+                            <p data-i18n="fact_incoming_body">Graduate study with continued focus on RL, LLMs, and machine learning.</p>
                         </div>
-                    </div>
-
-                    <div class="skill-category">
-                        <h3>操作系统</h3>
-                        <div class="skill-list">
-                            <span class="skill-tag">Linux</span>
-                            <span class="skill-tag">macOS</span>
-                            <span class="skill-tag">Windows</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="stats">
-                <h2>📊 GitHub 统计</h2>
-                <div class="stats-container">
-                    <img class="stats-image" src="https://github-readme-stats.vercel.app/api?username=223qyc&show_icons=true&count_private=true&theme=default&border_radius=10&border_color=00000000&title_color=007aff&icon_color=007aff&text_color=1d1d1f&bg_color=f5f5f7&hide_border=true&card_width=450" alt="GitHub Stats Card"/>
-                    <img class="stats-image" src="https://github-readme-stats.vercel.app/api/top-langs/?username=223qyc&langs_count=8&layout=compact&theme=default&border_radius=10&border_color=00000000&title_color=007aff&icon_color=007aff&text_color=1d1d1f&bg_color=f5f5f7&hide_border=true&card_width=450" alt="Top Languages Card"/>
-                </div>
-                <div class="trophy-streak-container">
-                     <img src="https://github-profile-trophy.vercel.app/?username=223qyc&theme=flat&no-frame=true&row=1&margin-w=15&column=7&no-bg=true&border_color=d2d2d7" alt="GitHub Trophy">
-                     <img src="https://github-readme-streak-stats.herokuapp.com/?user=223qyc&theme=default&hide_border=true&stroke=007aff&background=f5f5f7&ring=007aff&fire=007aff&currStreakLabel=007aff&border_radius=10&date_format=M%20j%5B%2C%20Y%5D" alt="GitHub Streak Stats">
-                 </div>
-            </section>
-
-            <section id="projects">
-                <h2>🚀 项目展示</h2>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <div class="project-image"><span class="project-image-icon">🧠</span></div>
-                        <div class="project-content">
-                            <h3 class="project-title">贝叶斯建模与最大熵模型</h3>
-                            <p class="project-description">神经特征函数的研究与实现，探索贝叶斯推理和最大熵原理在机器学习中的应用。</p>
-                            <a href="https://github.com/223qyc/Bayesian-modeling-Maximum-entropy-model-Neural-feature-function" class="project-link" target="_blank" rel="noopener noreferrer">查看项目 →</a>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-image"><span class="project-image-icon">📊</span></div>
-                        <div class="project-content">
-                            <h3 class="project-title">分布式光纤拉曼强度数据仿真</h3>
-                            <p class="project-description">开发数据模拟和降噪系统，用于分布式光纤拉曼强度监测。</p>
-                            <a href="https://github.com/223qyc/Data-simulation-and-noise-reduction-of-distributed-fiber-Raman-intensity" class="project-link" target="_blank" rel="noopener noreferrer">查看项目 →</a>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-image"><span class="project-image-icon">🚗</span></div>
-                        <div class="project-content">
-                            <h3 class="project-title">RLDriverX</h3>
-                            <p class="project-description">基于强化学习的自动驾驶模拟器，探索AI在交通决策中的应用。</p>
-                            <a href="https://github.com/223qyc/RLDriverX" class="project-link" target="_blank" rel="noopener noreferrer">查看项目 →</a>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-image"><span class="project-image-icon">🔥</span></div>
-                        <div class="project-content">
-                            <h3 class="project-title">PyTorch 学习记录</h3>
-                            <p class="project-description">记录深度学习框架的学习过程与实验，包含多种模型实现。</p>
-                            <a href="https://github.com/223qyc/PyTorch-learning-records" class="project-link" target="_blank" rel="noopener noreferrer">查看项目 →</a>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-image"><span class="project-image-icon">💻</span></div>
-                        <div class="project-content">
-                            <h3 class="project-title">100个应用脚本计划</h3>
-                            <p class="project-description">开发100个实用Python脚本，旨在提高编程技能和解决实际问题。</p>
-                            <a href="https://github.com/223qyc/100-applied-script-plan" class="project-link" target="_blank" rel="noopener noreferrer">查看项目 →</a>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-image"><span class="project-image-icon">📝</span></div>
-                        <div class="project-content">
-                            <h3 class="project-title">云笔记本</h3>
-                            <p class="project-description">基于云存储的笔记应用，支持多设备同步和协作编辑功能。</p>
-                            <a href="https://github.com/JiaYiByte101/Cloud_Notepad" class="project-link" target="_blank" rel="noopener noreferrer">查看项目 →</a>
+                        <div class="fact-card">
+                            <span data-i18n="fact_style_label">Style</span>
+                            <strong data-i18n="fact_style_title">Learning by building and iterating</strong>
+                            <p data-i18n="fact_style_body">Notes, experiments, tools, and research-flavored implementations.</p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="all-repos-link">
-                    <a href="https://github.com/223qyc?tab=repositories" class="button" target="_blank" rel="noopener noreferrer">
-                        查看所有仓库
-                    </a>
+        <section class="section" id="focus">
+            <div class="section-index" data-i18n="focus_index">02 / Focus</div>
+            <div class="panel section-panel">
+                <div class="section-heading">
+                    <div>
+                        <h2 data-i18n="focus_title">What I focus on</h2>
+                        <p data-i18n="focus_intro">
+                            Not everything belongs on a homepage. These are the areas that best describe my current direction.
+                        </p>
+                    </div>
+                    <p data-i18n="focus_side">
+                        The mix here is deliberate: research interests, modeling preferences, and the technical tools I actually use to explore them.
+                    </p>
                 </div>
-            </section>
 
-            <section id="journey">
-                <h2>💡 我的旅程</h2>
-                <div class="journey-quote">
-                    "The way to get started is to quit talking and begin doing."<br>
-                    <span style="font-size: 0.8em; color: var(--text-secondary);">- Walt Disney</span>
-                </div>
-
-                <div class="accordion">
-                    <div class="accordion-header">🚀 我的开发者目标</div>
-                    <div class="accordion-content">
-                        <ul>
-                            <li>🌱 我正在努力成为一名更有组织、更高效的开发者。</li>
-                            <li>💡 学会以更系统的方式思考代码结构，而不仅仅是让它"能跑"。</li>
-                            <li>🔍 提升 Debug 能力和问题本质的洞察力，而非只停留在修 bug。</li>
-                            <li>⚙️ 训练自己按时完成任务的执行力，减少拖延。</li>
-                            <li>🧱 学会构建长期可维护的代码，而不是一次性的拼凑逻辑。</li>
-                            <li>💪 除了写代码，也坚持锻炼身体。</li>
-                            <li>🗣️ 增强语言表达能力。</li>
-                        </ul>
+                <div class="focus-grid">
+                    <div class="focus-item">
+                        <h3 data-i18n="focus_card_1_title">Reinforcement Learning</h3>
+                        <p data-i18n="focus_card_1_body">
+                            I am interested in decision-making, sequential optimization, simulator-based experimentation,
+                            and the broader question of how learning agents behave in structured environments.
+                        </p>
+                    </div>
+                    <div class="focus-item">
+                        <h3 data-i18n="focus_card_2_title">Large Language Models</h3>
+                        <p data-i18n="focus_card_2_body">
+                            I want to understand and build with LLMs not only as APIs, but as systems:
+                            modeling choices, training behavior, evaluation, and practical integration.
+                        </p>
+                    </div>
+                    <div class="focus-item">
+                        <h3 data-i18n="focus_card_3_title">Machine Learning Systems</h3>
+                        <p data-i18n="focus_card_3_body">
+                            Building intelligent systems that learn from data, adapt to new situations,
+                            and make decisions under uncertainty is at the core of my research interests.
+                        </p>
                     </div>
                 </div>
 
-                <div class="accordion">
-                    <div class="accordion-header">🔍 关于我的更多信息</div>
-                    <div class="accordion-content">
-                        <ul>
-                            <li>🤝 渴望做一些真正的大事。</li>
-                            <li>🎯 正在构建属于自己的知识体系和思维方式。</li>
-                            <li>💬 喜欢分享学习笔记、经验、工具技巧。</li>
-                            <li>🎮 爱玩游戏但不沉迷，偶尔写些小工具提升生活效率。</li>
-                            <li>✨ 热爱技术背后解决问题的过程。</li>
-                        </ul>
+                <div class="section-heading" style="padding-top: 30px; margin-top: 30px;">
+                    <div>
+                        <h2 data-i18n="stack_title">Technologies and working stack</h2>
+                    </div>
+                    <p data-i18n="stack_side">
+                        A practical stack for experiments, research prototypes, scripts, data analysis, and lightweight applications.
+                    </p>
+                </div>
+
+                <div class="tag-grid">
+                    <div class="tag-card">
+                        <span data-i18n="tag_languages_label">Languages</span>
+                        <strong data-i18n="tag_languages_value">Python, C++, SQL</strong>
+                    </div>
+                    <div class="tag-card">
+                        <span data-i18n="tag_ml_label">ML</span>
+                        <strong data-i18n="tag_ml_value">PyTorch, TensorFlow, Scikit-Learn</strong>
+                    </div>
+                    <div class="tag-card">
+                        <span data-i18n="tag_research_label">Research Toolkit</span>
+                        <strong data-i18n="tag_research_value">NumPy, Pandas, Jupyter, experiment notebooks</strong>
+                    </div>
+                    <div class="tag-card">
+                        <span data-i18n="tag_dev_label">Dev Tools</span>
+                        <strong data-i18n="tag_dev_value">Git, GitHub, Docker, Flask, Linux/macOS</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="projects">
+            <div class="section-index" data-i18n="projects_index">03 / Projects</div>
+            <div class="panel section-panel">
+                <div class="section-heading">
+                    <div>
+                        <h2 data-i18n="projects_title">Selected projects</h2>
+                        <p data-i18n="projects_intro">
+                            A smaller set than before. These are the repositories that most clearly represent my research interests,
+                            learning process, and the kinds of problems I want to keep pushing.
+                        </p>
+                    </div>
+                    <p data-i18n="projects_side">
+                        I split them into two groups: research-oriented work and projects that capture learning, exploration, or fun.
+                    </p>
+                </div>
+
+                <div class="project-group">
+                    <div class="project-group-head">
+                        <div>
+                            <h3 data-i18n="research_group_title">Research-oriented work</h3>
+                            <p data-i18n="research_group_body">Projects with stronger modeling, experimentation, simulation, or research flavor.</p>
+                        </div>
+                        <div class="project-badge" data-i18n="research_group_badge">4 repositories</div>
+                    </div>
+
+                    <div class="project-grid">
+                        <article class="project-card">
+                            <div class="project-top">
+                                <h3 data-i18n="project_1_title">bn-structure-learning</h3>
+                                <div class="project-badge" data-i18n="project_1_badge">Bayesian learning</div>
+                            </div>
+                            <p data-i18n="project_1_body">
+                                A multi-paradigm exploration of Bayesian network structure learning, including research-minded attempts
+                                that connect classical ideas with reinforcement learning based perspectives.
+                            </p>
+                            <div class="project-tags">
+                                <span data-i18n="project_1_tag_1">Bayesian Networks</span>
+                                <span data-i18n="project_1_tag_2">Structure Learning</span>
+                                <span data-i18n="project_1_tag_3">Reinforcement Learning</span>
+                            </div>
+                            <a class="project-link" href="https://github.com/223qyc/bn-structure-learning" target="_blank" rel="noopener noreferrer" data-i18n="project_link">View repository</a>
+                        </article>
+
+                        <article class="project-card">
+                            <div class="project-top">
+                                <h3 data-i18n="project_2_title">RLDriverX</h3>
+                                <div class="project-badge" data-i18n="project_2_badge">Sequential decision</div>
+                            </div>
+                            <p data-i18n="project_2_body">
+                                A reinforcement-learning driven autonomous driving simulator project,
+                                used to explore decision-making behavior and traffic-oriented learning scenarios.
+                            </p>
+                            <div class="project-tags">
+                                <span data-i18n="project_2_tag_1">Reinforcement Learning</span>
+                                <span data-i18n="project_2_tag_2">Simulation</span>
+                                <span data-i18n="project_2_tag_3">Autonomous Driving</span>
+                            </div>
+                            <a class="project-link" href="https://github.com/223qyc/RLDriverX" target="_blank" rel="noopener noreferrer" data-i18n="project_link">View repository</a>
+                        </article>
+
+                        <article class="project-card">
+                            <div class="project-top">
+                                <h3 data-i18n="project_3_title">Bayesian Modeling &amp; Maximum Entropy</h3>
+                                <div class="project-badge" data-i18n="project_3_badge">Probabilistic modeling</div>
+                            </div>
+                            <p data-i18n="project_3_body">
+                                A study and implementation project around Bayesian modeling, maximum-entropy ideas,
+                                and neural feature functions in machine learning.
+                            </p>
+                            <div class="project-tags">
+                                <span data-i18n="project_3_tag_1">Bayesian Inference</span>
+                                <span data-i18n="project_3_tag_2">Maximum Entropy</span>
+                                <span data-i18n="project_3_tag_3">Neural Features</span>
+                            </div>
+                            <a class="project-link" href="https://github.com/223qyc/Bayesian-modeling-Maximum-entropy-model-Neural-feature-function" target="_blank" rel="noopener noreferrer" data-i18n="project_link">View repository</a>
+                        </article>
+
+                        <article class="project-card">
+                            <div class="project-top">
+                                <h3 data-i18n="project_4_title">Distributed Fiber Raman Simulation</h3>
+                                <div class="project-badge" data-i18n="project_4_badge">Scientific modeling</div>
+                            </div>
+                            <p data-i18n="project_4_body">
+                                A simulation and noise-reduction project for distributed fiber Raman intensity data,
+                                combining domain data processing with modeling and denoising work.
+                            </p>
+                            <div class="project-tags">
+                                <span data-i18n="project_4_tag_1">Data Simulation</span>
+                                <span data-i18n="project_4_tag_2">Noise Reduction</span>
+                                <span data-i18n="project_4_tag_3">Scientific Computing</span>
+                            </div>
+                            <a class="project-link" href="https://github.com/223qyc/Data-simulation-and-noise-reduction-of-distributed-fiber-Raman-intensity" target="_blank" rel="noopener noreferrer" data-i18n="project_link">View repository</a>
+                        </article>
                     </div>
                 </div>
 
-                <div class="accordion">
-                    <div class="accordion-header">🎮 有趣的事实 & 数字生活</div>
-                    <div class="accordion-content">
-                         <ul>
-                             <li>📺 喜欢看动漫。</li>
-                             <li>🧼 喜欢清爽极简的白色 VS Code 主题，偏爱 GitHub UI 风格。</li>
-                             <li>🖋️ 自定义工具主题，全白不刺眼，强迫症治愈系体验。</li>
-                             <li>🔗 用 Notion 做知识管理，Obsidian 写脑图，VS Code + Typora 写 Markdown。</li>
-                         </ul>
+                <div class="project-group">
+                    <div class="project-group-head">
+                        <div>
+                            <h3 data-i18n="learning_group_title">Learning and interesting builds</h3>
+                            <p data-i18n="learning_group_body">Projects that show how I learn, document, or build useful and enjoyable things.</p>
+                        </div>
+                        <div class="project-badge" data-i18n="learning_group_badge">3 repositories</div>
+                    </div>
+
+                    <div class="exploration-grid">
+                        <article class="exploration-card">
+                            <div class="project-top">
+                                <h3 data-i18n="project_5_title">Deep-Learning-Process</h3>
+                                <div class="project-badge" data-i18n="project_5_badge">Learning log</div>
+                            </div>
+                            <p data-i18n="project_5_body">
+                                A record of deep learning study, implementation practice, and experiments that document how my understanding evolves over time.
+                            </p>
+                            <div class="project-tags">
+                                <span data-i18n="project_5_tag_1">Deep Learning</span>
+                                <span data-i18n="project_5_tag_2">Notes</span>
+                                <span data-i18n="project_5_tag_3">Experiments</span>
+                            </div>
+                            <a class="project-link" href="https://github.com/223qyc/Deep-Learning-Process" target="_blank" rel="noopener noreferrer" data-i18n="project_link">View repository</a>
+                        </article>
+
+                        <article class="exploration-card">
+                            <div class="project-top">
+                                <h3 data-i18n="project_6_title">github-trend-analyzer</h3>
+                                <div class="project-badge" data-i18n="project_6_badge">Tooling</div>
+                            </div>
+                            <p data-i18n="project_6_body">
+                                A small tool project for observing and analyzing GitHub trends,
+                                reflecting my interest in practical automation and data-guided exploration.
+                            </p>
+                            <div class="project-tags">
+                                <span data-i18n="project_6_tag_1">GitHub Data</span>
+                                <span data-i18n="project_6_tag_2">Analysis</span>
+                                <span data-i18n="project_6_tag_3">Utility Project</span>
+                            </div>
+                            <a class="project-link" href="https://github.com/223qyc/github-trend-analyzer" target="_blank" rel="noopener noreferrer" data-i18n="project_link">View repository</a>
+                        </article>
+
+                        <article class="exploration-card">
+                            <div class="project-top">
+                                <h3 data-i18n="project_7_title">Cloud_Notepad</h3>
+                                <div class="project-badge" data-i18n="project_7_badge">Application</div>
+                            </div>
+                            <p data-i18n="project_7_body">
+                                A cloud-based note-taking application that reflects my interest in building useful software,
+                                not only research demos.
+                            </p>
+                            <div class="project-tags">
+                                <span data-i18n="project_7_tag_1">Cloud App</span>
+                                <span data-i18n="project_7_tag_2">Collaboration</span>
+                                <span data-i18n="project_7_tag_3">Product Thinking</span>
+                            </div>
+                            <a class="project-link" href="https://github.com/JiaYiByte101/Cloud_Notepad" target="_blank" rel="noopener noreferrer" data-i18n="project_link">View repository</a>
+                        </article>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-        </main>
+        <section class="section" id="contact">
+            <div class="section-index" data-i18n="contact_index">04 / Contact</div>
+            <div class="panel section-panel">
+                <div class="contact-panel">
+                    <div class="contact-copy">
+                        <div class="meta-label" data-i18n="contact_label">Contact</div>
+                        <h2 data-i18n="contact_title">Reach out if the topic is learning, research, or something worth building.</h2>
+                        <p data-i18n="contact_body">
+                            The easiest way to find me is by email or GitHub. If you want to talk about reinforcement learning,
+                            machine learning, LLMs, or intelligent systems, I am happy to connect.
+                        </p>
+                    </div>
+
+                    <div class="contact-links">
+                        <a class="contact-item" href="mailto:qqycyc4@gmail.com">
+                            <div>
+                                <span data-i18n="contact_email_label">Email</span>
+                                <strong>qqycyc4@gmail.com</strong>
+                            </div>
+                            <div>↗</div>
+                        </a>
+                        <a class="contact-item" href="mailto:2741837865@qq.com">
+                            <div>
+                                <span data-i18n="contact_qq_label">QQ Mail</span>
+                                <strong>2741837865@qq.com</strong>
+                            </div>
+                            <div>↗</div>
+                        </a>
+                        <a class="contact-item" href="https://github.com/223qyc" target="_blank" rel="noopener noreferrer">
+                            <div>
+                                <span>GitHub</span>
+                                <strong>github.com/223qyc</strong>
+                            </div>
+                            <div>↗</div>
+                        </a>
+                        <a class="contact-item" href="https://www.zhihu.com/people/zhen-nian-13-16" target="_blank" rel="noopener noreferrer">
+                            <div>
+                                <span>Zhihu</span>
+                                <strong>zhen-nian-13-16</strong>
+                            </div>
+                            <div>↗</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <footer>
-             <div class="footer-text">
-                感谢您的访问！很高兴能与您分享我的学习与探索之旅。
-             </div>
-             <div class="copyright">
-                © <span id="currentYear"></span> yicheng qin (223qyc). All Rights Reserved.
-             </div>
+            <p>© <span id="currentYear"></span> Yicheng Qin / 223qyc</p>
+            <p data-i18n="footer_note">Future Technology College, China University of Geosciences (Wuhan) · ShanghaiTech University SIST</p>
         </footer>
-
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const accordions = document.querySelectorAll('.accordion');
+        const translations = {
+            zh: {
+                page_title: "Yicheng Qin | 强化学习、LLMs 与机器学习",
+                page_description: "Yicheng Qin，关注强化学习、大语言模型、机器学习，也在持续自学量化研究。",
+                brand_subtitle: "223qyc · 强化学习 / LLMs / 机器学习",
+                nav_about: "关于",
+                nav_focus: "方向",
+                nav_projects: "项目",
+                nav_contact: "联系",
+                hero_eyebrow: "欢迎交流研究与想法",
+                hero_title: "围绕强化学习、LLMs 与机器学习持续构建想法。",
+                hero_lead: '我是 Yicheng Qin，目前学习计算机科学与技术，接下来的学术阶段将在 \u003cspan class="accent"\u003e上海科技大学信息学院（ShanghaiTech SIST）\u003c/span\u003e继续展开。当前我主要关注强化学习、大语言模型和机器学习，也在自己持续学习量化研究，因为我很认可这个方向的门槛、严谨性和挑战性。',
+                hero_cta_primary: "查看项目",
+                hero_cta_secondary: "GitHub 主页",
+                stat_now_label: "现在",
+                stat_now_value: "计算机专业本科生",
+                stat_next_label: "下一站",
+                stat_next_value: "上科大 SIST 研究生",
+                stat_research_label: "兴趣方向",
+                stat_research_value: "RL、LLMs、机器学习",
+                note_label: "当前状态",
+                note_title: "从课程实现走向研究深度。",
+                note_body: "最近的工作重点，正在从“学习型实现”逐步转向更有研究味道的探索：强化学习、大语言模型与机器学习系统。",
+                note_item_1: "上科大 SIST 研究生",
+                note_item_2: "持续关注 RL、LLMs 与机器学习",
+                note_item_3: "构建具有学习能力的智能系统",
+                approach_label: "做事方式",
+                approach_title: "偏研究思维，也重视实现落地，并且还在快速进化。",
+                approach_body: "我喜欢那种既有数学结构、又需要动手编码的项目：实验、仿真、学习流程，以及能帮助我更好理解问题的小工具。",
+                about_index: "01 / 关于",
+                about_title: "关于我",
+                about_intro: "这个主页是我当前阶段的一个精简切片：这里保留的是最能代表我当前兴趣、学习路径和研究取向的内容。",
+                about_side: "我目前学习计算机科学与技术，下一站是上海科技大学信息学院。我希望继续把学习系统、决策问题和研究能力做得更深，同时也保持对量化研究的自主学习和理解。",
+                about_p1: "我当前最核心的兴趣仍然集中在强化学习、大语言模型与机器学习。我喜欢那些不只是“能跑”，而且能揭示问题结构的项目。",
+                about_p2: "我专注于构建能够学习、适应和做出决策的智能系统。我的工作涵盖从理论探索到实际实现，也包括对量化研究的持续自学；我知道这个方向门槛很高，但正因为如此，我更愿意认真投入时间去理解它。",
+                about_p3: "我刻意把这个页面做得比较克制。它不是一份完整简历，而是一个更锋利、更聚焦的自我快照。",
+                fact_education_label: "教育背景",
+                fact_education_title: "中国地质大学（武汉）",
+                fact_education_body: "计算机科学与技术专业，2026 届本科毕业。",
+                fact_incoming_label: "即将进入",
+                fact_incoming_title: "上海科技大学 · 信息学院",
+                fact_incoming_body: "后续继续围绕 RL、LLM 与机器学习相关方向深入学习与研究。",
+                fact_style_label: "个人风格",
+                fact_style_title: "在构建与迭代中学习",
+                fact_style_body: "通过笔记、实验、工具和研究味道更浓的实现来推进理解。",
+                focus_index: "02 / 方向",
+                focus_title: "我现在重点关注什么",
+                focus_intro: "不是所有内容都值得放在首页里。这里放的是最能代表我当前方向的部分。",
+                focus_side: "这些内容是有意混合在一起的：研究兴趣、建模偏好，以及我实际会用来探索问题的技术栈。",
+                focus_card_1_title: "强化学习",
+                focus_card_1_body: "我关心决策过程、序列优化、基于模拟器的实验方式，以及学习体在结构化环境中的行为机制。",
+                focus_card_2_title: "大语言模型",
+                focus_card_2_body: "我希望理解并构建的不只是 API 层面的 LLM，而是更完整的系统：建模选择、训练行为、评估方式与实际集成。",
+                focus_card_3_title: "机器学习系统",
+                focus_card_3_body: "构建能够从数据中学习、适应新情况并在不确定性下做出决策的智能系统，这是我研究兴趣的核心。",
+                stack_title: "技术与工作栈",
+                stack_side: "这是一套偏实践的栈，适合做实验、研究原型、数据分析脚本，以及轻量级应用开发。",
+                tag_languages_label: "语言",
+                tag_languages_value: "Python, C++, SQL",
+                tag_ml_label: "机器学习",
+                tag_ml_value: "PyTorch, TensorFlow, Scikit-Learn",
+                tag_research_label: "研究工具",
+                tag_research_value: "NumPy, Pandas, Jupyter, 实验笔记本",
+                tag_dev_label: "开发工具",
+                tag_dev_value: "Git, GitHub, Docker, Flask, Linux/macOS",
+                projects_index: "03 / 项目",
+                projects_title: "精选项目",
+                projects_intro: "相比之前，我把项目集合缩小了。这里保留的是最能代表我研究兴趣、学习路径和问题意识的仓库。",
+                projects_side: "我把它们分成两组：更偏研究的问题导向项目，以及更能体现学习过程和有趣实践的项目。",
+                research_group_title: "研究导向项目",
+                research_group_body: "更偏建模、实验、仿真或研究探索的问题型项目。",
+                research_group_badge: "4 个仓库",
+                project_1_title: "bn-structure-learning",
+                project_1_badge: "机器学习",
+                project_1_body: "一个多范式的贝叶斯网络结构学习探索，尝试把经典方法和带有强化学习色彩的思路放在同一个问题框架下比较。",
+                project_1_tag_1: "贝叶斯网络",
+                project_1_tag_2: "结构学习",
+                project_1_tag_3: "强化学习",
+                project_2_title: "RLDriverX",
+                project_2_badge: "序列决策",
+                project_2_body: "一个强化学习驱动的自动驾驶模拟项目，用来探索交通场景中的决策行为与策略学习。",
+                project_2_tag_1: "强化学习",
+                project_2_tag_2: "仿真",
+                project_2_tag_3: "自动驾驶",
+                project_3_title: "贝叶斯建模与最大熵",
+                project_3_badge: "概率建模",
+                project_3_body: "围绕贝叶斯建模、最大熵思想与神经特征函数展开的学习与实现项目。",
+                project_3_tag_1: "贝叶斯推断",
+                project_3_tag_2: "最大熵",
+                project_3_tag_3: "神经特征",
+                project_4_title: "分布式光纤拉曼强度仿真",
+                project_4_badge: "科学建模",
+                project_4_body: "一个面向分布式光纤拉曼强度数据的仿真与降噪项目，兼顾领域数据处理和建模实验。",
+                project_4_tag_1: "数据仿真",
+                project_4_tag_2: "降噪",
+                project_4_tag_3: "科学计算",
+                learning_group_title: "学习记录与有趣实践",
+                learning_group_body: "更能体现我如何学习、如何记录，以及如何把兴趣转成工具和小应用的项目。",
+                learning_group_badge: "3 个仓库",
+                project_5_title: "Deep-Learning-Process",
+                project_5_badge: "学习记录",
+                project_5_body: "用来记录深度学习学习过程、实现练习和实验结果的仓库，保留理解逐步变化的轨迹。",
+                project_5_tag_1: "深度学习",
+                project_5_tag_2: "笔记",
+                project_5_tag_3: "实验",
+                project_6_title: "github-trend-analyzer",
+                project_6_badge: "工具项目",
+                project_6_body: "一个用于观察和分析 GitHub 趋势的小工具，体现了我对自动化和数据导向探索的兴趣。",
+                project_6_tag_1: "GitHub 数据",
+                project_6_tag_2: "分析",
+                project_6_tag_3: "实用工具",
+                project_7_title: "Cloud_Notepad",
+                project_7_badge: "应用开发",
+                project_7_body: "一个云端笔记应用，反映了我并不只做研究 demo，也愿意去做真正有使用场景的软件。",
+                project_7_tag_1: "云应用",
+                project_7_tag_2: "协作",
+                project_7_tag_3: "产品思维",
+                project_link: "查看仓库",
+                contact_index: "04 / 联系",
+                contact_label: "联系方式",
+                contact_title: "如果话题和学习、研究或值得做的东西有关，欢迎联系我。",
+                contact_body: "最直接的方式还是邮件或 GitHub。如果你想聊强化学习、机器学习、LLMs 或智能系统问题，我都愿意交流。",
+                contact_email_label: "邮箱",
+                contact_qq_label: "QQ 邮箱",
+                footer_note: "Future Technology College, China University of Geosciences (Wuhan) · ShanghaiTech University SIST"
+            },
+            en: {
+                page_title: "Yicheng Qin | RL, LLMs, Machine Learning",
+                page_description: "Yicheng Qin is a Computer Science student focused on reinforcement learning, large language models, machine learning, and a growing interest in quantitative research.",
+                brand_subtitle: "223qyc · RL / LLMs / Machine Learning",
+                nav_about: "About",
+                nav_focus: "Focus",
+                nav_projects: "Projects",
+                nav_contact: "Contact",
+                hero_eyebrow: "Available for research conversations",
+                hero_title: "Building ideas around RL, LLMs, and machine learning.",
+                hero_lead: 'I am Yicheng Qin, a Computer Science student at \u003cspan class="accent"\u003eChina University of Geosciences (Wuhan)\u003c/span\u003e, with my next academic stage at \u003cspan class="accent"\u003eShanghaiTech University, School of Information Science and Technology (SIST)\u003c/span\u003e. My current interests center on reinforcement learning, large language models, and machine learning, and I am also independently studying quantitative research because I find its rigor and difficulty genuinely compelling.',
+                hero_cta_primary: "Selected Projects",
+                hero_cta_secondary: "GitHub Profile",
+                stat_now_label: "Now",
+                stat_now_value: "Computer Science undergraduate",
+                stat_next_label: "Next",
+                stat_next_value: "ShanghaiTech SIST graduate student",
+                stat_research_label: "Research",
+                stat_research_value: "RL, LLMs, and machine learning",
+                note_label: "Current note",
+                note_title: "From coursework to research depth.",
+                note_body: "My recent work is moving from learning-oriented implementation toward more research-driven exploration: reinforcement learning, large language models, and machine learning systems.",
+                note_item_1: "ShanghaiTech SIST graduate student",
+                note_item_2: "Interested in RL, LLMs, and machine learning",
+                note_item_3: "Building intelligent systems with learning capabilities",
+                approach_label: "Personal approach",
+                approach_title: "Research-minded, implementation-heavy, still learning fast.",
+                approach_body: "I like projects that combine clear mathematical structure with practical coding work: experiments, simulations, learning pipelines, and tools that help me think better.",
+                about_index: "01 / About",
+                about_title: "About me",
+                about_intro: "This site is a compact record of my current stage, focusing on the work, interests, and direction that best reflect how I think.",
+                about_side: "I study Computer Science and Technology at China University of Geosciences (Wuhan), and the next stop is ShanghaiTech SIST. I want to go deeper on learning systems, decision-making, and research-driven problem solving, while continuing my independent exploration of quantitative research.",
+                about_p1: "My core interests currently sit around reinforcement learning, large language models, and machine learning. I enjoy projects that are not only able to run, but also reveal something about the underlying structure of a problem.",
+                about_p2: "I focus on building intelligent systems that can learn, adapt, and make decisions. My work spans from theoretical exploration to practical implementation, and I also spend time studying quantitative research on my own because I am drawn to its high bar and analytical depth.",
+                about_p3: "I keep this page intentionally small. It is not an exhaustive resume. It is a sharper snapshot of the work and directions I want to take seriously.",
+                fact_education_label: "Education",
+                fact_education_title: "China University of Geosciences (Wuhan)",
+                fact_education_body: "Computer Science and Technology, graduating in 2026.",
+                fact_incoming_label: "Incoming",
+                fact_incoming_title: "ShanghaiTech University · SIST",
+                fact_incoming_body: "Graduate study with continued focus on RL, LLMs, and machine learning.",
+                fact_style_label: "Style",
+                fact_style_title: "Learning by building and iterating",
+                fact_style_body: "Notes, experiments, tools, and research-flavored implementations.",
+                focus_index: "02 / Focus",
+                focus_title: "What I focus on",
+                focus_intro: "Not everything belongs on a homepage. These are the areas that best describe my current direction.",
+                focus_side: "The mix here is deliberate: research interests, modeling preferences, and the technical tools I actually use to explore them.",
+                focus_card_1_title: "Reinforcement Learning",
+                focus_card_1_body: "I am interested in decision-making, sequential optimization, simulator-based experimentation, and the broader question of how learning agents behave in structured environments.",
+                focus_card_2_title: "Large Language Models",
+                focus_card_2_body: "I want to understand and build with LLMs not only as APIs, but as systems: modeling choices, training behavior, evaluation, and practical integration.",
+                focus_card_3_title: "Machine Learning Systems",
+                focus_card_3_body: "Building intelligent systems that learn from data, adapt to new situations, and make decisions under uncertainty is at the core of my research interests.",
+                stack_title: "Technologies and working stack",
+                stack_side: "A practical stack for experiments, research prototypes, scripts, data analysis, and lightweight applications.",
+                tag_languages_label: "Languages",
+                tag_languages_value: "Python, C++, SQL",
+                tag_ml_label: "ML",
+                tag_ml_value: "PyTorch, TensorFlow, Scikit-Learn",
+                tag_research_label: "Research Toolkit",
+                tag_research_value: "NumPy, Pandas, Jupyter, experiment notebooks",
+                tag_dev_label: "Dev Tools",
+                tag_dev_value: "Git, GitHub, Docker, Flask, Linux/macOS",
+                projects_index: "03 / Projects",
+                projects_title: "Selected projects",
+                projects_intro: "A smaller set than before. These are the repositories that most clearly represent my research interests, learning process, and the kinds of problems I want to keep pushing.",
+                projects_side: "I split them into two groups: research-oriented work and projects that capture learning, exploration, or fun.",
+                research_group_title: "Research-oriented work",
+                research_group_body: "Projects with stronger modeling, experimentation, simulation, or research flavor.",
+                research_group_badge: "4 repositories",
+                project_1_title: "bn-structure-learning",
+                project_1_badge: "Machine learning",
+                project_1_body: "A multi-paradigm exploration of Bayesian network structure learning, including research-minded attempts that connect classical ideas with reinforcement learning based perspectives.",
+                project_1_tag_1: "Bayesian Networks",
+                project_1_tag_2: "Structure Learning",
+                project_1_tag_3: "Reinforcement Learning",
+                project_2_title: "RLDriverX",
+                project_2_badge: "Sequential decision",
+                project_2_body: "A reinforcement-learning driven autonomous driving simulator project, used to explore decision-making behavior and traffic-oriented learning scenarios.",
+                project_2_tag_1: "Reinforcement Learning",
+                project_2_tag_2: "Simulation",
+                project_2_tag_3: "Autonomous Driving",
+                project_3_title: "Bayesian Modeling & Maximum Entropy",
+                project_3_badge: "Probabilistic modeling",
+                project_3_body: "A study and implementation project around Bayesian modeling, maximum-entropy ideas, and neural feature functions in machine learning.",
+                project_3_tag_1: "Bayesian Inference",
+                project_3_tag_2: "Maximum Entropy",
+                project_3_tag_3: "Neural Features",
+                project_4_title: "Distributed Fiber Raman Simulation",
+                project_4_badge: "Scientific modeling",
+                project_4_body: "A simulation and noise-reduction project for distributed fiber Raman intensity data, combining domain data processing with modeling and denoising work.",
+                project_4_tag_1: "Data Simulation",
+                project_4_tag_2: "Noise Reduction",
+                project_4_tag_3: "Scientific Computing",
+                learning_group_title: "Learning and interesting builds",
+                learning_group_body: "Projects that show how I learn, document, or build useful and enjoyable things.",
+                learning_group_badge: "3 repositories",
+                project_5_title: "Deep-Learning-Process",
+                project_5_badge: "Learning log",
+                project_5_body: "A record of deep learning study, implementation practice, and experiments that document how my understanding evolves over time.",
+                project_5_tag_1: "Deep Learning",
+                project_5_tag_2: "Notes",
+                project_5_tag_3: "Experiments",
+                project_6_title: "github-trend-analyzer",
+                project_6_badge: "Tooling",
+                project_6_body: "A small tool project for observing and analyzing GitHub trends, reflecting my interest in practical automation and data-guided exploration.",
+                project_6_tag_1: "GitHub Data",
+                project_6_tag_2: "Analysis",
+                project_6_tag_3: "Utility Project",
+                project_7_title: "Cloud_Notepad",
+                project_7_badge: "Application",
+                project_7_body: "A cloud-based note-taking application that reflects my interest in building useful software, not only research demos.",
+                project_7_tag_1: "Cloud App",
+                project_7_tag_2: "Collaboration",
+                project_7_tag_3: "Product Thinking",
+                project_link: "View repository",
+                contact_index: "04 / Contact",
+                contact_label: "Contact",
+                contact_title: "Reach out if the topic is learning, research, or something worth building.",
+                contact_body: "The easiest way to find me is by email or GitHub. If you want to talk about reinforcement learning, machine learning, LLMs, or intelligent systems, I am happy to connect.",
+                contact_email_label: "Email",
+                contact_qq_label: "QQ Mail",
+                footer_note: "Future Technology College, China University of Geosciences (Wuhan) · ShanghaiTech University SIST"
+            }
+        };
 
-            accordions.forEach(accordion => {
-                const header = accordion.querySelector('.accordion-header');
-                header.addEventListener('click', () => {
-                    accordion.classList.toggle('active');
-                });
+        const pageTitle = document.querySelector("title");
+        const pageDescription = document.querySelector('meta[name="description"]');
+        const langButtons = document.querySelectorAll("[data-lang-button]");
+        const textNodes = document.querySelectorAll("[data-i18n]");
+        const htmlNodes = document.querySelectorAll("[data-i18n-html]");
+
+        function applyLanguage(lang) {
+            const dict = translations[lang] || translations.en;
+
+            textNodes.forEach((node) => {
+                const key = node.dataset.i18n;
+                if (dict[key]) {
+                    node.textContent = dict[key];
+                }
             });
 
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            htmlNodes.forEach((node) => {
+                const key = node.dataset.i18nHtml;
+                if (dict[key]) {
+                    node.innerHTML = dict[key];
+                }
+            });
+
+            pageTitle.textContent = dict.page_title;
+            pageDescription.setAttribute("content", dict.page_description);
+            document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+
+            langButtons.forEach((button) => {
+                const btnLang = button.getAttribute("data-lang-button");
+                if (btnLang === lang) {
+                    button.classList.add("active");
+                } else {
+                    button.classList.remove("active");
+                }
+
+                button.setAttribute("aria-pressed", String(btnLang === lang));
+            });
+
+            localStorage.setItem("site-lang", lang);
+        }
+
+        function resolveInitialLang() {
+            const saved = localStorage.getItem("site-lang");
+            if (saved === "zh" || saved === "en") {
+                return saved;
+            }
+
+            const browserLang = navigator.language.toLowerCase();
+            return browserLang.startsWith("zh") ? "zh" : "en";
+        }
+
+        langButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                const lang = button.getAttribute("data-lang-button");
+                applyLanguage(lang);
+            });
         });
+
+        document.getElementById("currentYear").textContent = new Date().getFullYear();
+        applyLanguage(resolveInitialLang());
     </script>
 </body>
 </html>
